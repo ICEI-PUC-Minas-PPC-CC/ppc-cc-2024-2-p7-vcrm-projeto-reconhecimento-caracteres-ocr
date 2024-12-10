@@ -26,7 +26,7 @@
 - https://www.python.org/
 
 2. Baixe o instalador
-- Na página inicial, clique em *Downloads*
+- Na página inicial, clique em *Downloads*.
 - Selecione o instalador para o seu sistema operacional.
 
 3. Execute o Instalador:
