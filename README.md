@@ -66,7 +66,7 @@ Poppler é uma biblioteca usada para manipulação de arquivos PDF. É essencial
   ```pdfinfo --version```
 
 ## 3º Passo: Faça o clone do repositório
-- Abra o terminal do git e digite: `https://github.com/ICEI-PUC-Minas-PPC-CC/ppc-cc-2024-2-p7-vcrm-projeto-reconhecimento-caracteres-ocr`
+- Abra o terminal do git e digite: `git clone https://github.com/ICEI-PUC-Minas-PPC-CC/ppc-cc-2024-2-p7-vcrm-projeto-reconhecimento-caracteres-ocr`
 
 ## 4º Passo: Instalação das bibliotecas
 - Abra o terminal do VS Code e digite: `pip install -r requirements.txt`
