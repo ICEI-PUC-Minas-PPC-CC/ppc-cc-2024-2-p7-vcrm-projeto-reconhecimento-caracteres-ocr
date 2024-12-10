@@ -75,4 +75,4 @@ Poppler é uma biblioteca usada para manipulação de arquivos PDF. É essencial
 - No terminal, rode o comando para habilitar a API (Importante: Deixe rodando): `python ocr_api.py`
 - Abra uma nova janela do terminal, para rodar a interface gráfica: `python app.py`
 
-Seguindo os passos acima, aplicação deverá rodar normalmente.
+Seguindo os passos acima, a aplicação deverá rodar normalmente.
