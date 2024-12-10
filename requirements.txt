@@ -1,0 +1,10 @@
+paddleocr
+paddlepaddle
+flask
+requests
+Pillow
+PyPDF2
+pdf2image
+python-docx
+reportlab
+pyqt5
