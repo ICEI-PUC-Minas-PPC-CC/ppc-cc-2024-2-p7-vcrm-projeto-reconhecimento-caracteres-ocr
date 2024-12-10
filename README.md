@@ -1,42 +1,78 @@
-# TÍTULO DO PROJETO
+# Reconhecimento de Caracteres OCR
 
 `PPC-CC: PUC Poços de Caldas - Ciência da Computação`
-`Disciplina: NOME DA DISCIPLINA`
-`2021 - Semestre 1`
+`Disciplina: Visão Computacional e Realidade Misturada`
+`2024 - Semestre 2`
 
 ## Integrantes
 
-- Jeff Bezos
-- Bill Gates
-- Larry Ellison
-- Mark Zuckerberg
+- Leonardo Vilas Boas Mendes
+- Vinicius Machioni
 
 ## Professor
 
-- Mestre Yoda
+- Prof. M. Sc. Will Machado 
 
 # Documentação
 
-<ol>
-<li><a href="docs/1-Documentação de Contexto.md"> Documentação de Contexto</a></li>
-<li><a href="docs/2-Especificação do Projeto.md"> Especificação do Projeto</a></li>
-<li><a href="docs/3-Projeto de Interface.md"> Projeto de Interface</a></li>
-<li><a href="docs/4-Metodologia.md"> Metodologia</a></li>
-<li><a href="docs/5-Arquitetura da Solução.md"> Arquitetura da Solução</a></li>
-<li><a href="docs/6-Template padrão do Site.md"> Template padrão do Site</a></li>
-<li><a href="docs/7-Programação de Funcionalidades.md"> Programação de Funcionalidades</a></li>
-<li><a href="docs/8-Plano de Testes de Software.md"> Plano de Testes de Software</a></li>
-<li><a href="docs/9-Registro de Testes de Software.md"> Registro de Testes de Software</a></li>
-<li><a href="docs/10-Plano de Testes de Usabilidade.md"> Plano de Testes de Usabilidade</a></li>
-<li><a href="docs/11-Registro de Testes de Usabilidade.md"> Registro de Testes de Usabilidade</a></li>
-<li><a href="docs/12-Apresentação do Projeto.md"> Apresentação do Projeto</a></li>
-<li><a href="docs/13-Referências.md"> Referências</a></li>
-</ol>
+## 1º Passo: Instalação do Python
 
-# Código
+### Requisitos
+- Sistema Operacional compatível: Windows, macOS ou Linux.
+- Permissões de administrador para instalar softwares.
 
-<li><a href="src/README.md"> Código Fonte</a></li>
+### Passo a Passo
+1. Acesse o site oficial do Python
+- https://www.python.org/
 
-# Apresentação
+2. Baixe o instalador
+- Na página inicial, clique em *Downloads*
+- Selecione o instalador para o seu sistema operacional.
 
-<li><a href="presentation/README.md"> Apresentação da solução</a></li>
+3. Execute o Instalador:
+   ### Windows
+- Clique duas vezes no arquivo baixado.
+- Na janela de instalação:
+    - Marque a opção Add Python to PATH.
+    - Clique em Install Now.
+- Aguarde até que a instalação seja concluída e clique em Close.
+
+  ### Linux
+- No linux, o python vem instalado. Verifique digitando:
+   ```python3 --version```
+4. Verifique a instalação:
+  ```python --version``` ou ```python3 --version```
+
+## 2º Passo: Instalação do Poppler
+Poppler é uma biblioteca usada para manipulação de arquivos PDF. É essencial para conversão de PDFs em imagens ou extração de texto em projetos Python que usam ferramentas como pdf2image.
+
+1. Instalação no Windows:
+- Baixe o Poppler para Windows em:  https://github.com/oschwartz10612/poppler-windows/releases/.
+- Extraia o conteúdo do arquivo baixado para uma pasta de sua escolha (por exemplo, ```C:\poppler```).
+- Adicione o caminho da pasta ```bin``` ao PATH do sistema:
+    - Clique com o botão direito em Este Computador > Propriedades > Configurações Avançadas do Sistema.
+    - Clique em Variáveis de Ambiente.
+    - Na variável Path, adicione o caminho completo da pasta ```C:\poppler\bin```.
+
+2. Instalação no Linux:
+- Use o gerenciador de pacotes da sua distribuição para instalar o Poppler:
+- Debian/Ubuntu:
+  ```sudo apt update``` e 
+  ```sudo apt install poppler-utils```
+
+3. Verificando a instalação:
+- Abra o terminal.
+- Digite:
+  ```pdfinfo --version```
+
+## 3º Passo: Faça o clone do repositório
+- Abra o terminal do git e digite: `https://github.com/ICEI-PUC-Minas-PPC-CC/ppc-cc-2024-2-p7-vcrm-projeto-reconhecimento-caracteres-ocr`
+
+## 4º Passo: Instalação das bibliotecas
+- Abra o terminal do VS Code e digite: `pip install -r requirements.txt`
+
+## 5º Passo: Rode a Aplicação
+- No terminal, rode o comando para habilitar a API (Importante: Deixe rodando): `python ocr_api.py`
+- Abra uma nova janela do terminal, para rodar a interface gráfica: `python app.py`
+
+Seguindo os passos acima, aplicação deverá rodar normalmente.
