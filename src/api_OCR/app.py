@@ -9,8 +9,8 @@ from PyQt5.QtGui import QColor, QPalette, QFont
 from PyQt5.QtCore import Qt
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
-from pdf2image import convert_from_path
 from docx import Document
+from pdf2image import convert_from_path
 
 URL_API = "http://127.0.0.1:5000/ocr"
 
@@ -120,10 +120,10 @@ class OCRApp(QWidget):
             results = []
 
             if self.input_mode == "file":
-                if input_path.lower().endswith('.pdf'):
-                    results = self.process_pdf(input_path)
-                else:
-                    results = self.process_image(input_path)
+                if input_path.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp', '.tiff')):
+                    results.append(self.process_image(input_path))
+                elif input_path.lower().endswith('.pdf'):
+                    results.extend(self.process_pdf(input_path))
 
             elif self.input_mode == "folder":
                 for root, _, files in os.walk(input_path):
@@ -138,6 +138,13 @@ class OCRApp(QWidget):
         except Exception as e:
             QMessageBox.critical(self, "Erro", str(e))
 
+    def process_image(self, image_path):
+        with open(image_path, "rb") as img_file:
+            response = requests.post(URL_API, files={"image": img_file})
+        response.raise_for_status()
+        result = response.json()
+        return self.extract_text(result)
+
     def process_pdf(self, pdf_path):
         images = convert_from_path(pdf_path)
         results = []
@@ -148,29 +155,44 @@ class OCRApp(QWidget):
             os.remove(temp_path)
         return results
 
-    def process_image(self, image_path):
-        with open(image_path, "rb") as img_file:
-            response = requests.post(URL_API, files={"image": img_file})
-        response.raise_for_status()
-        result = response.json()
-        return self.extract_text(result)
-
     def extract_text(self, result):
-        return "\n".join([line['text'] for line in result.get("recognized_text", [])])
+        text = ""
+        for line in result.get("recognized_text", []):
+            if isinstance(line, dict) and 'text' in line:
+                text += line['text'] + "\n"
+        return text.strip()
 
     def save_pdf(self, text, output_file):
         c = canvas.Canvas(output_file, pagesize=letter)
         width, height = letter
+        margin = 40
         c.setFont("Helvetica", 10)
-        y_position = height - 40
+        y_position = height - margin
         line_height = 12
-        for line in text.splitlines():
-            if y_position <= 40:
-                c.showPage()
-                c.setFont("Helvetica", 10)
-                y_position = height - 40
-            c.drawString(40, y_position, line)
-            y_position -= line_height
+        max_line_width = width - 2 * margin
+
+        lines = text.split("\n")
+
+        for line in lines:
+            words = line.split()
+            current_line = ""
+
+            while words:
+                if y_position <= margin:
+                    c.showPage()
+                    c.setFont("Helvetica", 10)
+                    y_position = height - margin
+
+                while words and c.stringWidth(current_line + words[0] + " ", "Helvetica", 10) < max_line_width:
+                    current_line += words.pop(0) + " "
+
+                c.drawString(margin, y_position, current_line.strip())
+                y_position -= line_height
+                current_line = ""
+
+                if not words:
+                    y_position -= line_height
+
         c.save()
 
     def save_output(self, results, output_dir, output_format):
